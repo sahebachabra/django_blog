@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
+if os.path.isfile('env.py'):
+    import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&m%gu-ez==#b@$+_t99xi_wgv()$4vr7#$-og^=x4rdhx6lh6j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-'localhost', '127.0.0.1', '8000-sahebachabra-djangoblog-iz18zig7yzh.ws-eu117.gitpod.io'
+'localhost', '127.0.0.1', '8000-sahebachabra-djangoblog-iz18zig7yzh.ws-eu117.gitpod.io', '.herokuapp.com'
 ]
 
 
@@ -76,12 +80,24 @@ WSGI_APPLICATION = 'codestar.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
+import os
+import dj_database_url
+if os.path.isfile('env.py'):
+    import env
+
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default='postgres://localhost/mydb')
 }
+
 
 
 # Password validation
